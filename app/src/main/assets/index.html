@@ -194,12 +194,12 @@
             <form id="login-form" class="flex flex-col gap-4 text-left" onsubmit="handleEmailLogin(event)">
                 <div class="flex flex-col gap-1.5">
                     <label class="text-xs text-on-surface-variant font-semibold ml-1">Display Name</label>
-                    <input id="login-name" type="text" placeholder="e.g. Meet Patel" class="w-full px-3.5 py-2.5 bg-surface-container rounded-xl border border-white/5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all" required>
+                    <input id="login-name" type="text" placeholder="Enter your name" class="w-full px-3.5 py-2.5 bg-surface-container rounded-xl border border-white/5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all" required>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label class="text-xs text-on-surface-variant font-semibold ml-1">Email Address</label>
-                    <input id="login-email" type="email" placeholder="e.g. meet@example.com" class="w-full px-3.5 py-2.5 bg-surface-container rounded-xl border border-white/5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all" required>
+                    <input id="login-email" type="email" placeholder="Enter your email" class="w-full px-3.5 py-2.5 bg-surface-container rounded-xl border border-white/5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all" required>
                 </div>
 
                 <!-- Avatar Selection -->
@@ -699,6 +699,7 @@
                 tags: ["art", "abstract", "mobile"],
                 isFavorite: false
             }
+        ];
         // Expanded Wallpapers repository for the Explore tab
         const exploreWallpapers = [
             {
@@ -912,7 +913,7 @@
                 // Retrieve display name from input if user typed one, fallback to a beautiful default
                 let targetName = document.getElementById('login-name').value.trim();
                 if (!targetName) {
-                    const names = ["Meet Patel", "Ramesh Kumar", "Alex Mercer", "Jordan Smith", "Kunal Shah"];
+                    const names = ["John Doe", "Ramesh Kumar", "Alex Mercer", "Jordan Smith", "Kunal Shah"];
                     targetName = names[Math.floor(Math.random() * names.length)];
                 }
                 const targetEmail = targetName.toLowerCase().replace(/\s+/g, '') + "@gmail.com";
