@@ -373,16 +373,147 @@
         </main>
     </div>
 
+    <!-- ================= VIEW 4: EXPLORE ================= -->
+    <div id="view-explore" class="app-view hidden w-full flex flex-col">
+        <!-- TopAppBar -->
+        <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-white/5 w-full">
+            <div class="flex justify-between items-center w-full px-container-margin py-3 max-w-screen-xl mx-auto">
+                <button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim select-none" style="font-family: 'Plus Jakarta Sans', sans-serif;">Explore Fluids</h1>
+                <button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Canvas -->
+        <main class="flex-grow w-full max-w-screen-xl mx-auto px-container-margin pt-4 pb-12">
+            <!-- Search & Filters -->
+            <div class="mb-6 flex flex-col gap-4">
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                    <input id="explore-search" type="text" placeholder="Search fluid wallpapers..." class="w-full pl-12 pr-4 py-2.5 bg-surface-container rounded-full border border-white/5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all placeholder:text-surface-variant" oninput="filterExploreGallery()">
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                    <button id="exp-chip-all" class="explore-chip whitespace-nowrap px-4 py-1.5 rounded-full font-label-sm text-xs bg-primary text-on-primary font-semibold transition-all" onclick="setExploreFilter('all')">All</button>
+                    <button id="exp-chip-abstract" class="explore-chip whitespace-nowrap px-4 py-1.5 rounded-full font-label-sm text-xs border border-secondary-container text-on-surface hover:border-primary transition-all glass-panel" onclick="setExploreFilter('Abstract')">Abstract</button>
+                    <button id="exp-chip-neon" class="explore-chip whitespace-nowrap px-4 py-1.5 rounded-full font-label-sm text-xs border border-secondary-container text-on-surface hover:border-primary transition-all glass-panel" onclick="setExploreFilter('Neon')">Neon</button>
+                    <button id="exp-chip-minimal" class="explore-chip whitespace-nowrap px-4 py-1.5 rounded-full font-label-sm text-xs border border-secondary-container text-on-surface hover:border-primary transition-all glass-panel" onclick="setExploreFilter('Minimal')">Minimal</button>
+                    <button id="exp-chip-cyberpunk" class="explore-chip whitespace-nowrap px-4 py-1.5 rounded-full font-label-sm text-xs border border-secondary-container text-on-surface hover:border-primary transition-all glass-panel" onclick="setExploreFilter('Cyberpunk')">Cyberpunk</button>
+                </div>
+            </div>
+
+            <!-- Explore Grid -->
+            <div id="explore-grid" class="masonry-grid w-full">
+                <!-- Dynamic Explore Wallpapers -->
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= VIEW 5: FLUID STUDIO (CUSTOMIZER) ================= -->
+    <div id="view-customizer" class="app-view hidden w-full flex flex-col">
+        <!-- TopAppBar -->
+        <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-white/5 w-full">
+            <div class="flex justify-between items-center w-full px-container-margin py-3 max-w-screen-xl mx-auto">
+                <button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary-fixed-dim select-none" style="font-family: 'Plus Jakarta Sans', sans-serif;">Fluid Studio</h1>
+                <button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200" onclick="openAdminModal()">
+                    <span class="material-symbols-outlined">admin_panel_settings</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-grow flex flex-col items-center justify-start px-container-margin py-6 w-full max-w-lg mx-auto relative z-10">
+            <!-- Studio Preview Canvas -->
+            <div class="relative w-full aspect-[9/16] max-h-[360px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-6 bg-surface-container-low flex items-center justify-center">
+                <canvas id="studio-canvas" class="w-full h-full object-cover" width="360" height="640"></canvas>
+                <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none">
+                    <span class="glass-panel text-primary font-label-sm px-2 py-1 rounded border border-primary/20 backdrop-blur-md text-[10px] uppercase tracking-wider">Studio Custom</span>
+                </div>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="w-full glass-panel rounded-2xl p-5 border border-white/5 flex flex-col gap-4">
+                <!-- Title -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs text-on-surface-variant font-semibold ml-1">Wallpaper Title</label>
+                    <input id="studio-title" type="text" value="My Fluid Swirl" class="w-full px-3 py-2 bg-surface-container rounded-lg border border-white/5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all">
+                </div>
+
+                <!-- Customizer Style Preset -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs text-on-surface-variant font-semibold ml-1">Style Type</label>
+                    <select id="studio-style" class="w-full px-3 py-2 bg-surface-container rounded-lg border border-white/5 focus:border-primary focus:ring-0 text-on-surface text-sm transition-all" onchange="renderStudioCanvas()">
+                        <option value="Neon Swirl">Neon Swirl</option>
+                        <option value="Plasma Wave">Plasma Wave</option>
+                        <option value="Cosmic Dust">Cosmic Dust</option>
+                    </select>
+                </div>
+
+                <!-- Color Selectors -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs text-on-surface-variant font-semibold ml-1">Palette Colors</label>
+                    <div class="flex justify-around items-center bg-surface-container p-2.5 rounded-lg border border-white/5">
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-on-surface-variant">Primary</span>
+                            <div class="w-10 h-10 rounded-full overflow-hidden border border-white/20 relative shadow-inner cursor-pointer">
+                                <input type="color" id="color-primary" value="#920703" class="absolute -inset-2 w-14 h-14 cursor-pointer p-0 border-0" onchange="renderStudioCanvas()">
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-on-surface-variant">Secondary</span>
+                            <div class="w-10 h-10 rounded-full overflow-hidden border border-white/20 relative shadow-inner cursor-pointer">
+                                <input type="color" id="color-secondary" value="#ffd700" class="absolute -inset-2 w-14 h-14 cursor-pointer p-0 border-0" onchange="renderStudioCanvas()">
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-on-surface-variant">Accent</span>
+                            <div class="w-10 h-10 rounded-full overflow-hidden border border-white/20 relative shadow-inner cursor-pointer">
+                                <input type="color" id="color-accent" value="#ff9a8a" class="absolute -inset-2 w-14 h-14 cursor-pointer p-0 border-0" onchange="renderStudioCanvas()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <button onclick="saveCustomWallpaper()" class="w-full py-3 mt-2 rounded-full bg-primary text-on-primary font-bold text-sm neon-shadow hover:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                    Save to My Library
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================= ADMIN PASSWORD MODAL ================= -->
+    <div id="admin-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-md transition-all duration-300">
+        <div class="w-80 glass-panel rounded-2xl p-6 border border-white/10 shadow-2xl flex flex-col gap-4 text-center">
+            <span class="material-symbols-outlined text-4xl text-primary-fixed-dim">admin_panel_settings</span>
+            <div>
+                <h3 class="font-headline-md text-primary font-bold text-lg">Admin Authentication</h3>
+                <p class="text-xs text-on-surface-variant mt-1">Enter admin passcode to unlock the Upload Portal</p>
+            </div>
+            <input id="admin-passcode" type="password" placeholder="Passcode" class="w-full text-center py-2 bg-surface-container rounded-lg border border-white/5 focus:border-primary focus:ring-0 text-on-surface tracking-widest font-bold text-sm">
+            <div class="flex gap-2 mt-2">
+                <button onclick="closeAdminModal()" class="flex-1 py-2 rounded-full border border-white/10 text-on-surface hover:bg-white/5 transition-colors text-xs font-semibold">Cancel</button>
+                <button onclick="verifyAdminPasscode()" class="flex-1 py-2 rounded-full bg-primary text-on-primary hover:bg-primary-fixed transition-colors text-xs font-bold shadow-lg">Verify</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ================= BOTTOM NAV BAR (Mobile Only) ================= -->
     <nav id="mobile-nav" class="md:hidden fixed bottom-6 left-0 right-0 z-40 rounded-full bg-surface-container/90 backdrop-blur-xl shadow-xl flex justify-around items-center px-4 py-3 mx-container-margin max-w-md mx-auto border border-white/10">
         <button id="nav-btn-library" class="flex flex-col items-center justify-center text-primary text-primary-fixed-dim transition-all duration-300" onclick="switchView('library')">
             <span class="material-symbols-outlined text-2xl">home_app_logo</span>
         </button>
-        <button id="nav-btn-explore" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="showToast('Explore mode coming soon!')">
+        <button id="nav-btn-explore" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="switchView('explore')">
             <span class="material-symbols-outlined text-2xl">explore</span>
         </button>
-        <button id="nav-btn-upload" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="switchView('upload')">
-            <span class="material-symbols-outlined text-2xl">upload_file</span>
+        <button id="nav-btn-upload" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="clickUploadOrStudio()">
+            <span id="nav-icon-upload" class="material-symbols-outlined text-2xl">palette</span>
         </button>
         <button id="nav-btn-profile" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="scrollToProfile()">
             <span class="material-symbols-outlined text-2xl">person</span>
@@ -395,10 +526,10 @@
             <h1 class="font-headline-md text-primary neon-shadow w-10 h-10 flex items-center justify-center bg-primary-container text-on-primary rounded-xl mb-8 font-extrabold select-none">F</h1>
         </div>
         <div class="flex flex-col gap-8">
-            <button class="text-primary hover:text-primary transition-colors" onclick="switchView('library')"><span class="material-symbols-outlined text-2xl">home_app_logo</span></button>
-            <button class="text-on-surface-variant hover:text-primary transition-colors" onclick="showToast('Explore mode coming soon!')"><span class="material-symbols-outlined text-2xl">explore</span></button>
-            <button class="text-on-surface-variant hover:text-primary transition-colors" onclick="switchView('upload')"><span class="material-symbols-outlined text-2xl">upload_file</span></button>
-            <button class="text-on-surface-variant hover:text-primary transition-colors" onclick="scrollToProfile()"><span class="material-symbols-outlined text-2xl">person</span></button>
+            <button id="desktop-btn-library" class="text-primary hover:text-primary transition-colors" onclick="switchView('library')"><span class="material-symbols-outlined text-2xl">home_app_logo</span></button>
+            <button id="desktop-btn-explore" class="text-on-surface-variant hover:text-primary transition-colors" onclick="switchView('explore')"><span class="material-symbols-outlined text-2xl">explore</span></button>
+            <button id="desktop-btn-upload" class="text-on-surface-variant hover:text-primary transition-colors" onclick="clickUploadOrStudio()"><span id="desktop-icon-upload" class="material-symbols-outlined text-2xl">palette</span></button>
+            <button id="desktop-btn-profile" class="text-on-surface-variant hover:text-primary transition-colors" onclick="scrollToProfile()"><span class="material-symbols-outlined text-2xl">person</span></button>
         </div>
     </aside>
 
@@ -466,6 +597,108 @@
                 tags: ["art", "abstract", "mobile"],
                 isFavorite: false
             }
+        // Expanded Wallpapers repository for the Explore tab
+        const exploreWallpapers = [
+            {
+                id: 1,
+                title: "Crimson Flow",
+                category: "Abstract",
+                resolution: "4K Ultra HD",
+                description: "A mesmerizing, immersive fluid dynamics abstract wallpaper. Deep crimsons swirl with neon gold accents, creating an atmospheric, glassmorphic depth.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDAcerpxYfWCvuMRYlNxe_AR5YbtSVHfdooXw1HKYStIefzneJLKrLFdGspp8_h4VBeh6z3e0Ktj0cnQ_7LECXtqChMRs0GsW7gOWeV7fnPzn21zbtJfkwPBQxC415Q2nJrnSGyWHn9HwnzER8YLoupt-BugknTLq9jNsymPm2Ut9EMbkdXqKMRJuZ6gcd7sun0LFalewTR8xBJhuvho14HfJEM6aLXGFtmsXc_aYs8ynRrO9SZUmX6f-5P4VoXr2YRFmw0gJXq5g",
+                tags: ["abstract", "neon", "4k"],
+                isFavorite: false
+            },
+            {
+                id: 2,
+                title: "Abstract Liquid Flow",
+                category: "Abstract",
+                resolution: "4K • Abstract",
+                description: "A striking digital installation art piece featuring glowing, generative liquid fluid shapes suspended in a vast, minimalist gallery space.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCmb8jnL0RQZCcGXncKCWoaWDAEFsCHFnxuMmyuOxmTTOB_-r9r54JIlD1oM4PqB8mI3B7BkP9V_5yWu-b4VqtbSzDIAnm8nmZa_N4u5h2J55Psb-JNzUPTSRZ5zUWnNzbfWseg5aOTgweP-lF3MMLzL5ZAJvEaDVZHYwPSWk4QOpB4T07T4GSzEJOJR4QdLvPn01f4m7zSa5knyoB3QGkwaDS-f_1tD96QclTiH8TCUe-KF2XBYfOm1R-MmKJU7s83IXV-BXdLXg",
+                tags: ["abstract", "liquid", "4k"],
+                isFavorite: false
+            },
+            {
+                id: 3,
+                title: "Neon Geometric",
+                category: "Neon",
+                resolution: "Mobile • Neon",
+                description: "A striking digital installation art piece featuring glowing, generative geometric shapes suspended in a vast, minimalist gallery space.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBLsgvZ_VSR1eVZExtEkFa5L5AcKKtNnfiOBFrZ7yvCtqQQZmmyzDW3agACEgurBg0YjVHyiI7oAyNLKs_m4JIEEVbA8O845kxO_-ssFPwul73xz8ygEggkBdqcDrS4McklgR4q1XUMtqOLFrk8y_gKIIOetuXaWAZ4XPi-UW6gcO7sE2HRmhTZ6uKbQg56LZdy6gswqYFD8-vUELG90MKXRCpmUy3x0SIZrWutdVX3kuWB_CXLlDTMJyfFOLlpA4p1zZDAAmc9xg",
+                tags: ["neon", "geometric", "mobile"],
+                isFavorite: false
+            },
+            {
+                id: 4,
+                title: "Dark Minimalist Waves",
+                category: "Minimal",
+                resolution: "8K • Minimal",
+                description: "A striking digital art piece featuring glowing, generative wave shapes suspended in a vast, minimalist digital space.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCawDXSFrvTbNYwg22ah-XgBqut4SUhXScVQKeqPEhU6axsngTdngL_xc7EmELE1cQz0jBF9-Q1SyaV-VjOor2yHmxU9cHRMLwyytPU4vaJHzI5TMAQJiHTMduvYNVLZtFskmhkfh5Nb3MM1G2ZK6RVFUXNF46SS88IgRfMIB2cxaqMWPbiteoDahOaDmVLGCGM2LWvuL6AnJVx-f7ZAiVXKm7LGCTmqdeIsrQXloE4-KW78L3wrj6s_Ct9-aHO5dyhknzLRVkjOQ",
+                tags: ["minimal", "waves", "8k"],
+                isFavorite: false
+            },
+            {
+                id: 5,
+                title: "Cyberpunk Cityscape",
+                category: "Cyberpunk",
+                resolution: "Ultrawide • Cyberpunk",
+                description: "A striking digital installation art piece featuring glowing, generative architectural shapes suspended in a modern cyberpunk city layout.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA0-50g-quQfIuKUk3YYh5-d_54-xuWx9AEpHCx5a_B4tI8fTG1KjAK2Gh-IBV_HK4jDDKZp0fd-X2OXK7btiacuSgFttOpHKLVB55QSKvDwGldxeW2zNx8MAbSBmPbzsG2iyF3_uqUEXeOTOz20Ie9bybHDlzGLy-o_iKmg-jgKBh3NW7BZ9q2XXQchhJxoDUkukmURIq8zMSuBvZ3__DwcLD6y7C3OYdavT8yQkk0alqJFsfxdYCq9PwKzxhbR-RkVJhUsdy9Sw",
+                tags: ["cyberpunk", "cityscape", "ultrawide"],
+                isFavorite: false
+            },
+            {
+                id: 6,
+                title: "Abstract Paint Splatter",
+                category: "Abstract",
+                resolution: "Mobile • Art",
+                description: "A striking digital installation art piece featuring glowing, generative abstract paint shapes suspended in a vast, minimalist gallery space.",
+                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD2U32ex4_mdZ1Iwmu6I2iEOvDLSGfd_-7pdcWLchZvv0dKVdcYjcGA2vfd6ABLGLmB6UJdiCBGSc8Q-2if9fxLTJD8y7D1EmbYPwJP4RmfuYUbxGBKAzCl-FQHWB5uIsj-lL1g25AEelmG_0cR75slVULg-7pQK8VNg8W-_lbxXMNaJoOoyrLWywGApveEAla9gekrb-8CmsiFcOaCesgwtZOEy2WWMn_crJKOYTDOLblMxAl3Emp5e2KzAV7JOchW-hzhnTkHTg",
+                tags: ["art", "abstract", "mobile"],
+                isFavorite: false
+            },
+            {
+                id: 7,
+                title: "Ethereal Swirls",
+                category: "Abstract",
+                resolution: "4K Ultra HD",
+                description: "Glowing, swirling waves of fluid paint blending neon pinks and deep emerald greens into a premium digital masterpiece.",
+                image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=600&q=80",
+                tags: ["abstract", "swirls", "neon"],
+                isFavorite: false
+            },
+            {
+                id: 8,
+                title: "Cosmic Nebula",
+                category: "Neon",
+                resolution: "4K Ultra HD",
+                description: "A deep stellar nebula featuring high-energy stellar emissions, glowing dust fields, and premium starry contrast.",
+                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+                tags: ["neon", "space", "nebula"],
+                isFavorite: false
+            },
+            {
+                id: 9,
+                title: "Vibrant Waves",
+                category: "Minimal",
+                resolution: "4K Ultra HD",
+                description: "Clean, minimalist wavy shapes highlighting dynamic lighting and a curated primary color palette.",
+                image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80",
+                tags: ["minimal", "waves", "clean"],
+                isFavorite: false
+            },
+            {
+                id: 10,
+                title: "Obsidian Flow",
+                category: "Minimal",
+                resolution: "4K Ultra HD",
+                description: "Deep obsidian waves flowing over geometric steps, illuminated with soft golden rays.",
+                image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80",
+                tags: ["minimal", "obsidian", "dark"],
+                isFavorite: false
+            }
         ];
 
         let wallpapers = [];
@@ -474,6 +707,10 @@
         let selectedCategoryVal = 'Abstract';
         let currentActiveWallpaperId = null;
         let selectedFileBase64 = null;
+        
+        // Admin configuration
+        let isAdmin = false;
+        let exploreFilter = 'all';
 
         // Initialize App
         function initApp() {
@@ -482,11 +719,18 @@
             if (savedData) {
                 wallpapers = JSON.parse(savedData);
             } else {
-                wallpapers = [...defaultWallpapers];
+                // Initialize library with first 3 wallpapers as default
+                wallpapers = [
+                    exploreWallpapers[0],
+                    exploreWallpapers[1],
+                    exploreWallpapers[2]
+                ];
                 saveToStorage();
             }
             renderGallery();
+            renderExploreGallery();
             updateStats();
+            renderStudioCanvas();
         }
 
         function saveToStorage() {
@@ -501,25 +745,89 @@
             document.getElementById('view-library').classList.add('hidden');
             document.getElementById('view-detail').classList.add('hidden');
             document.getElementById('view-upload').classList.add('hidden');
+            document.getElementById('view-explore').classList.add('hidden');
+            document.getElementById('view-customizer').classList.add('hidden');
 
             // Show target view
             const targetViewEl = document.getElementById(`view-${viewName}`);
-            targetViewEl.classList.remove('hidden');
+            if (targetViewEl) {
+                targetViewEl.classList.remove('hidden');
+            }
             activeView = viewName;
 
             // Update Nav States
             updateNavigationHighlight(viewName);
         }
 
+        function clickUploadOrStudio() {
+            if (isAdmin) {
+                switchView('upload');
+            } else {
+                switchView('customizer');
+            }
+        }
+
+        // Admin Modal Authentication
+        function openAdminModal() {
+            document.getElementById('admin-modal').classList.remove('hidden');
+            document.getElementById('admin-passcode').value = '';
+            document.getElementById('admin-passcode').focus();
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function verifyAdminPasscode() {
+            const code = document.getElementById('admin-passcode').value;
+            if (code === '1234') {
+                isAdmin = true;
+                closeAdminModal();
+                showToast("Admin access granted!");
+                
+                // Update Nav Bar Icons to upload_file
+                document.getElementById('nav-icon-upload').textContent = 'upload_file';
+                document.getElementById('desktop-icon-upload').textContent = 'upload_file';
+                
+                switchView('upload');
+            } else {
+                showToast("Invalid passcode. Try '1234'");
+            }
+        }
+
         function updateNavigationHighlight(viewName) {
-            const navs = ['library', 'upload'];
+            // Mobile Nav
+            const navs = ['library', 'explore', 'upload'];
             navs.forEach(nav => {
                 const btn = document.getElementById(`nav-btn-${nav}`);
                 if (btn) {
-                    if (nav === viewName) {
-                        btn.className = "flex flex-col items-center justify-center text-primary text-primary-fixed-dim transition-all duration-300";
+                    let isHighlighted = false;
+                    if (nav === 'library' && viewName === 'library') isHighlighted = true;
+                    if (nav === 'explore' && viewName === 'explore') isHighlighted = true;
+                    if (nav === 'upload' && (viewName === 'upload' || viewName === 'customizer')) isHighlighted = true;
+                    
+                    if (isHighlighted) {
+                        btn.className = "flex flex-col items-center justify-center text-primary text-primary-fixed-dim scale-110 transition-all duration-300";
                     } else {
                         btn.className = "flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300";
+                    }
+                }
+            });
+
+            // Desktop Nav
+            const desktopNavs = ['library', 'explore', 'upload'];
+            desktopNavs.forEach(nav => {
+                const btn = document.getElementById(`desktop-btn-${nav}`);
+                if (btn) {
+                    let isHighlighted = false;
+                    if (nav === 'library' && viewName === 'library') isHighlighted = true;
+                    if (nav === 'explore' && viewName === 'explore') isHighlighted = true;
+                    if (nav === 'upload' && (viewName === 'upload' || viewName === 'customizer')) isHighlighted = true;
+                    
+                    if (isHighlighted) {
+                        btn.className = "text-primary neon-shadow drop-shadow-[0_0_8px_rgba(233,196,0,0.5)] transition-all";
+                    } else {
+                        btn.className = "text-on-surface-variant hover:text-primary transition-colors";
                     }
                 }
             });
@@ -545,7 +853,7 @@
             }, 2000);
         }
 
-        // Gallery Rendering
+        // Library (My Gallery) Rendering
         function setLibraryTab(tab) {
             currentTab = tab;
             
@@ -585,7 +893,7 @@
             filtered.forEach(item => {
                 const card = document.createElement('div');
                 card.className = "masonry-item relative rounded-xl overflow-hidden group cursor-pointer border border-surface-container-high/10 bg-surface-container-lowest";
-                card.onclick = () => showDetail(item.id);
+                card.onclick = () => showDetail(item.id, 'library');
 
                 card.innerHTML = `
                     <img alt="${item.title}" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" src="${item.image}">
@@ -602,6 +910,78 @@
             });
         }
 
+        // Explore Gallery rendering
+        function renderExploreGallery() {
+            const container = document.getElementById('explore-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const searchQuery = document.getElementById('explore-search').value.toLowerCase().trim();
+
+            const filtered = exploreWallpapers.filter(w => {
+                const matchesSearch = w.title.toLowerCase().includes(searchQuery) || w.tags.some(t => t.toLowerCase().includes(searchQuery));
+                const matchesFilter = exploreFilter === 'all' || w.category === exploreFilter;
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-on-surface-variant">
+                        <span class="material-symbols-outlined text-4xl mb-2">search_off</span>
+                        <p class="text-sm">No wallpapers match your filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "masonry-item relative rounded-xl overflow-hidden group cursor-pointer border border-surface-container-high/10 bg-surface-container-lowest";
+                card.onclick = () => showDetail(item.id, 'explore');
+
+                card.innerHTML = `
+                    <img alt="${item.title}" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" src="${item.image}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                        <div class="flex justify-between items-center w-full">
+                            <span class="glass-panel text-primary font-label-sm px-2 py-1 rounded-md border border-primary/20 backdrop-blur-md text-[10px]">${item.category}</span>
+                            <button class="text-primary hover:text-primary-container transition-colors" onclick="event.stopPropagation(); toggleFavorite(${item.id})">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' ${isFavoriteInLibrary(item.id) ? '1' : '0'};">favorite</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function isFavoriteInLibrary(id) {
+            const item = wallpapers.find(w => w.id === id);
+            return item ? item.isFavorite : false;
+        }
+
+        function filterExploreGallery() {
+            renderExploreGallery();
+        }
+
+        function setExploreFilter(category) {
+            exploreFilter = category;
+            
+            // Highlight chip
+            const chips = ['all', 'abstract', 'neon', 'minimal', 'cyberpunk'];
+            chips.forEach(chip => {
+                const btn = document.getElementById(`exp-chip-${chip}`);
+                if (btn) {
+                    if (chip === category.toLowerCase() || (chip === 'all' && category === 'all')) {
+                        btn.className = "explore-chip whitespace-nowrap px-4 py-1.5 rounded-full font-label-sm text-xs bg-primary text-on-primary font-semibold transition-all";
+                    } else {
+                        btn.className = "explore-chip whitespace-nowrap px-4 py-1.5 rounded-full font-label-sm text-xs border border-secondary-container text-on-surface hover:border-primary transition-all glass-panel";
+                    }
+                }
+            });
+
+            renderExploreGallery();
+        }
+
         function updateStats() {
             const downloads = localStorage.getItem('fluidstuffs_downloads') || 142;
             document.getElementById('downloads-count').textContent = downloads;
@@ -611,8 +991,14 @@
         }
 
         // Wallpaper Details Screen
-        function showDetail(id) {
-            const item = wallpapers.find(w => w.id === id);
+        function showDetail(id, source = 'library') {
+            let item = null;
+            if (source === 'library') {
+                item = wallpapers.find(w => w.id === id);
+            } else {
+                item = exploreWallpapers.find(w => w.id === id);
+            }
+
             if (!item) return;
 
             currentActiveWallpaperId = id;
@@ -623,7 +1009,7 @@
             document.getElementById('detail-resolution').textContent = item.resolution;
             document.getElementById('detail-description').textContent = item.description;
 
-            updateDetailFavButton(item.isFavorite);
+            updateDetailFavButton(isFavoriteInLibrary(id));
 
             switchView('detail');
         }
@@ -634,16 +1020,33 @@
         }
 
         function toggleFavorite(id) {
-            const index = wallpapers.findIndex(w => w.id === id);
-            if (index !== -1) {
+            // First check if it exists in user's library
+            let index = wallpapers.findIndex(w => w.id === id);
+            if (index === -1) {
+                // If it is favorited from Explore, copy it to library first
+                const exploreItem = exploreWallpapers.find(w => w.id === id);
+                if (exploreItem) {
+                    const newItem = {...exploreItem, isFavorite: true};
+                    wallpapers.unshift(newItem);
+                    saveToStorage();
+                    renderGallery();
+                    updateStats();
+                    showToast("Added to library favorites!");
+                    if (currentActiveWallpaperId === id) {
+                        updateDetailFavButton(true);
+                    }
+                    renderExploreGallery();
+                    return;
+                }
+            } else {
                 wallpapers[index].isFavorite = !wallpapers[index].isFavorite;
                 saveToStorage();
                 renderGallery();
                 updateStats();
-
                 if (currentActiveWallpaperId === id) {
                     updateDetailFavButton(wallpapers[index].isFavorite);
                 }
+                renderExploreGallery();
             }
         }
 
@@ -680,11 +1083,25 @@
                 currentDownloads += 1;
                 localStorage.setItem('fluidstuffs_downloads', currentDownloads);
                 updateStats();
+                
+                // Add to library if it was set from explore
+                if (currentActiveWallpaperId) {
+                    const exists = wallpapers.some(w => w.id === currentActiveWallpaperId);
+                    if (!exists) {
+                        const exploreItem = exploreWallpapers.find(w => w.id === currentActiveWallpaperId);
+                        if (exploreItem) {
+                            wallpapers.unshift({...exploreItem});
+                            saveToStorage();
+                            renderGallery();
+                        }
+                    }
+                }
+                
                 showToast("Wallpaper set successfully!");
             }, 1500);
         }
 
-        // Upload Form Handling
+        // Upload Form Handling (For Admin)
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (file) {
@@ -721,7 +1138,7 @@
             }
 
             // Create new Wallpaper object
-            const newId = wallpapers.length > 0 ? Math.max(...wallpapers.map(w => w.id)) + 1 : 1;
+            const newId = Date.now();
             const newWallpaper = {
                 id: newId,
                 title: title,
@@ -745,6 +1162,145 @@
             selectedFileBase64 = null;
 
             showToast("Wallpaper published to feed!");
+            switchView('library');
+        }
+
+        // Procedural Fluid Canvas Rendering Engine (Fluid Studio)
+        function renderStudioCanvas() {
+            const canvas = document.getElementById('studio-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // Get custom input values
+            const color1 = document.getElementById('color-primary').value;
+            const color2 = document.getElementById('color-secondary').value;
+            const color3 = document.getElementById('color-accent').value;
+            const style = document.getElementById('studio-style').value;
+            
+            // Dark base background gradient
+            const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
+            bgGrad.addColorStop(0, '#0a0909');
+            bgGrad.addColorStop(1, '#151313');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, width, height);
+            
+            if (style === 'Neon Swirl') {
+                ctx.save();
+                ctx.translate(width / 2, height * 0.45);
+                ctx.globalCompositeOperation = 'screen';
+                
+                for (let i = 0; i < 12; i++) {
+                    ctx.rotate((Math.PI * 2) / 12);
+                    const grad = ctx.createRadialGradient(30, 0, 10, 50, 0, 180);
+                    grad.addColorStop(0, color1 + 'dd');
+                    grad.addColorStop(0.4, color2 + 'aa');
+                    grad.addColorStop(0.8, color3 + '33');
+                    grad.addColorStop(1, '#00000000');
+                    
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.ellipse(40, 0, 90, 200, Math.PI / 8, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+                
+                // Overlay organic micro neon dust points
+                ctx.shadowBlur = 8;
+                for (let i = 0; i < 35; i++) {
+                    const x = width * 0.15 + Math.random() * width * 0.7;
+                    const y = height * 0.2 + Math.random() * height * 0.55;
+                    const size = Math.random() * 3 + 1;
+                    ctx.fillStyle = color3;
+                    ctx.shadowColor = color3;
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            } else if (style === 'Plasma Wave') {
+                // Drawing organic wave paths with glowing lines
+                ctx.shadowBlur = 20;
+                for (let j = 0; j < 4; j++) {
+                    const color = j % 3 === 0 ? color1 : (j % 3 === 1 ? color2 : color3);
+                    ctx.strokeStyle = color;
+                    ctx.shadowColor = color;
+                    ctx.lineWidth = 14 - j * 3;
+                    ctx.beginPath();
+                    ctx.moveTo(0, height * 0.2 + j * 90);
+                    for (let x = 0; x <= width; x += 15) {
+                        const y = height * 0.35 + j * 75 + Math.sin((x / 40) + j * 1.5) * 60 + Math.cos((x / 70) - j) * 35;
+                        ctx.lineTo(x, y);
+                    }
+                    ctx.stroke();
+                }
+            } else { // Cosmic Dust
+                // Draw space dust nebula with colors
+                ctx.globalCompositeOperation = 'screen';
+                for (let i = 0; i < 5; i++) {
+                    const cx = width * (0.25 + Math.random() * 0.5);
+                    const cy = height * (0.3 + Math.random() * 0.4);
+                    const r = width * (0.3 + Math.random() * 0.35);
+                    
+                    const grad = ctx.createRadialGradient(cx, cy, r * 0.05, cx, cy, r);
+                    grad.addColorStop(0, (i % 2 === 0 ? color1 : color2) + 'dd');
+                    grad.addColorStop(0.5, color3 + '55');
+                    grad.addColorStop(1, '#00000000');
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                // Tiny stars
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowBlur = 0;
+                ctx.globalCompositeOperation = 'source-over';
+                for (let i = 0; i < 80; i++) {
+                    const x = Math.random() * width;
+                    const y = Math.random() * height;
+                    ctx.fillRect(x, y, Math.random() * 2, Math.random() * 2);
+                }
+            }
+        }
+
+        // Save customized Studio wallpaper to Library
+        function saveCustomWallpaper() {
+            const canvas = document.getElementById('studio-canvas');
+            if (!canvas) return;
+            
+            const title = document.getElementById('studio-title').value.trim() || 'My Fluid Swirl';
+            const style = document.getElementById('studio-style').value;
+            const color1 = document.getElementById('color-primary').value;
+            const color2 = document.getElementById('color-secondary').value;
+            const color3 = document.getElementById('color-accent').value;
+            
+            // Convert canvas content to base64 image
+            const base64Image = canvas.toDataURL('image/png');
+            
+            const newId = Date.now();
+            const customWallpaper = {
+                id: newId,
+                title: title,
+                category: 'Abstract',
+                resolution: '4K Ultra HD',
+                description: `Procedurally generated in Fluid Studio using ${style} preset. Palette: ${color1}, ${color2}, ${color3}.`,
+                image: base64Image,
+                tags: ['custom', 'fluid studio', style.toLowerCase()],
+                isFavorite: false
+            };
+            
+            // Save to wallpapers list
+            wallpapers.unshift(customWallpaper);
+            saveToStorage();
+            
+            // Update UI
+            renderGallery();
+            updateStats();
+            
+            showToast("Custom wallpaper saved to library!");
+            
+            // Redirect to library
             switchView('library');
         }
 
