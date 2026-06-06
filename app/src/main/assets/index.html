@@ -606,34 +606,37 @@
         </div>
     </div>
 
-    <!-- ================= BOTTOM NAV BAR (Mobile Only) ================= -->
-    <nav id="mobile-nav" class="md:hidden fixed bottom-6 left-0 right-0 z-40 rounded-full bg-surface-container/90 backdrop-blur-xl shadow-xl flex justify-around items-center px-4 py-3 mx-container-margin max-w-md mx-auto border border-white/10">
-        <button id="nav-btn-library" class="flex flex-col items-center justify-center text-primary text-primary-fixed-dim transition-all duration-300" onclick="switchView('library')">
-            <span class="material-symbols-outlined text-2xl">home_app_logo</span>
-        </button>
-        <button id="nav-btn-explore" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="switchView('explore')">
-            <span class="material-symbols-outlined text-2xl">explore</span>
-        </button>
-        <button id="nav-btn-upload" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="clickUploadOrStudio()">
-            <span id="nav-icon-upload" class="material-symbols-outlined text-2xl">palette</span>
-        </button>
-        <button id="nav-btn-profile" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="scrollToProfile()">
-            <span class="material-symbols-outlined text-2xl">person</span>
-        </button>
-    </nav>
+    <!-- ================= APP NAVIGATION ================= -->
+    <div id="app-navigation" class="hidden">
+        <!-- ================= BOTTOM NAV BAR (Mobile Only) ================= -->
+        <nav id="mobile-nav" class="md:hidden fixed bottom-6 left-0 right-0 z-40 rounded-full bg-surface-container/90 backdrop-blur-xl shadow-xl flex justify-around items-center px-4 py-3 mx-container-margin max-w-md mx-auto border border-white/10">
+            <button id="nav-btn-library" class="flex flex-col items-center justify-center text-primary text-primary-fixed-dim transition-all duration-300" onclick="switchView('library')">
+                <span class="material-symbols-outlined text-2xl">home_app_logo</span>
+            </button>
+            <button id="nav-btn-explore" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="switchView('explore')">
+                <span class="material-symbols-outlined text-2xl">explore</span>
+            </button>
+            <button id="nav-btn-upload" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="clickUploadOrStudio()">
+                <span id="nav-icon-upload" class="material-symbols-outlined text-2xl">palette</span>
+            </button>
+            <button id="nav-btn-profile" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all duration-300" onclick="scrollToProfile()">
+                <span class="material-symbols-outlined text-2xl">person</span>
+            </button>
+        </nav>
 
-    <!-- ================= SIDE NAV BAR (Desktop Only) ================= -->
-    <aside id="desktop-nav" class="hidden md:flex flex-col fixed left-0 top-0 h-full w-20 bg-surface-container/60 backdrop-blur-2xl z-40 items-center py-8 border-r border-outline-variant/10">
-        <div class="mb-auto">
-            <h1 class="font-headline-md text-primary neon-shadow w-10 h-10 flex items-center justify-center bg-primary-container text-on-primary rounded-xl mb-8 font-extrabold select-none">F</h1>
-        </div>
-        <div class="flex flex-col gap-8">
-            <button id="desktop-btn-library" class="text-primary hover:text-primary transition-colors" onclick="switchView('library')"><span class="material-symbols-outlined text-2xl">home_app_logo</span></button>
-            <button id="desktop-btn-explore" class="text-on-surface-variant hover:text-primary transition-colors" onclick="switchView('explore')"><span class="material-symbols-outlined text-2xl">explore</span></button>
-            <button id="desktop-btn-upload" class="text-on-surface-variant hover:text-primary transition-colors" onclick="clickUploadOrStudio()"><span id="desktop-icon-upload" class="material-symbols-outlined text-2xl">palette</span></button>
-            <button id="desktop-btn-profile" class="text-on-surface-variant hover:text-primary transition-colors" onclick="scrollToProfile()"><span class="material-symbols-outlined text-2xl">person</span></button>
-        </div>
-    </aside>
+        <!-- ================= SIDE NAV BAR (Desktop Only) ================= -->
+        <aside id="desktop-nav" class="hidden md:flex flex-col fixed left-0 top-0 h-full w-20 bg-surface-container/60 backdrop-blur-2xl z-40 items-center py-8 border-r border-outline-variant/10">
+            <div class="mb-auto">
+                <h1 class="font-headline-md text-primary neon-shadow w-10 h-10 flex items-center justify-center bg-primary-container text-on-primary rounded-xl mb-8 font-extrabold select-none">F</h1>
+            </div>
+            <div class="flex flex-col gap-8">
+                <button id="desktop-btn-library" class="text-primary hover:text-primary transition-colors" onclick="switchView('library')"><span class="material-symbols-outlined text-2xl">home_app_logo</span></button>
+                <button id="desktop-btn-explore" class="text-on-surface-variant hover:text-primary transition-colors" onclick="switchView('explore')"><span class="material-symbols-outlined text-2xl">explore</span></button>
+                <button id="desktop-btn-upload" class="text-on-surface-variant hover:text-primary transition-colors" onclick="clickUploadOrStudio()"><span id="desktop-icon-upload" class="material-symbols-outlined text-2xl">palette</span></button>
+                <button id="desktop-btn-profile" class="text-on-surface-variant hover:text-primary transition-colors" onclick="scrollToProfile()"><span class="material-symbols-outlined text-2xl">person</span></button>
+            </div>
+        </aside>
+    </div>
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
@@ -842,13 +845,11 @@
                 applyUserProfile();
                 
                 // Show navbars
-                document.getElementById('mobile-nav').classList.remove('hidden');
-                document.getElementById('desktop-nav').classList.remove('hidden');
+                document.getElementById('app-navigation').classList.remove('hidden');
                 switchView('library');
             } else {
                 // Hide navbars for guest/login state
-                document.getElementById('mobile-nav').classList.add('hidden');
-                document.getElementById('desktop-nav').classList.add('hidden');
+                document.getElementById('app-navigation').classList.add('hidden');
                 switchView('login');
             }
 
@@ -933,8 +934,7 @@
             applyUserProfile();
             
             // Show navbars
-            document.getElementById('mobile-nav').classList.remove('hidden');
-            document.getElementById('desktop-nav').classList.remove('hidden');
+            document.getElementById('app-navigation').classList.remove('hidden');
             
             showToast(`Signed in as ${name}!`);
             switchView('library');
@@ -995,8 +995,7 @@
             closeProfileModal();
             
             // Hide nav bars
-            document.getElementById('mobile-nav').classList.add('hidden');
-            document.getElementById('desktop-nav').classList.add('hidden');
+            document.getElementById('app-navigation').classList.add('hidden');
             
             // Reset input values
             document.getElementById('login-name').value = '';
